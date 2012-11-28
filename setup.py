@@ -32,7 +32,8 @@ setup(name='ethertest',
           'scapy',
           'pyx',
           'gnuplot-py',
+          'numpy',
           'nose'
       ],
       test_suite="ethertest.tests"
-      )
+)
