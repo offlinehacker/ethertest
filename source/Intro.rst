@@ -19,7 +19,7 @@ correctly and i like to reuse code as much as possible. Meybe i am lazy
 or i just have health problems and i rather spend more time doing excerises.
 
 Well i deciced to be as good as those network administrators and not
-just as that, but even better. I decided to take developer aproach to
+just that, but even better. I decided to take developer aproach to
 working and secure network. Because i'm studing telecomunications i
 decide to spend some time making this document for good practices for
 tested and secure ip networks.

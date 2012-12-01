@@ -12,11 +12,11 @@ that kind of person. I like to test and debug what's i'm doing. I know many netw
 incidents where networks have been hacked because of inproper network configurations.
 I don't want to be hacked, i want to know that i am at least slightly secure.
 
-That's why i decide to use virtual environemnts for testing. It doesn't matter what
-virtualization are you using. I decided to take virtualbox, because it allows me to 
+Because of simplicity i decide to use virtual environemnts for testing.
+I decided to take virtualbox, because it allows me to 
 put different enterprise network elements into it, like mikrotik, cisco,... and
 other enterpise solutions. At the same time it allows me to setup virtual network.
-But if you are doing only linux openvz, lxc, kvm, virtual box or any virtualization
+But if you are doing only linux then openvz, lxc, kvm, virtual box or any virtualization
 that helps you build virtual network should suffice.
 
 .. note::
@@ -36,23 +36,35 @@ deployment systems integrated.
 Testing
 -------
 
-I decide to split testing in five phases:
+I decide to split network testing in five phases:
 
-* Network conectivety testing
-  This kind of testing is used for verification of conectivety betwene network segments.
-
-* Network correctness tesing
-  This kind of testing is used for testing correctness of network filters(firewalls) of 
-  how they separate different network segments.
-
-* Network security testing
-  This kind of testing is used for testing of network firewalls and prevention of common
-  attacks on different network segments.
-
-* Network intrusion testing
-  This kind of testing is used for testing of intrusin detection systems and common attacks
-  on any network services.
+* **Network conectivety testing**::
   
-* Network intrusion testing
-  This kind of testing is used for testing of intrusin detection systems and common attacks
-  on any nnetwork services.
+    This kind of testing are used for verification of conectivety betwene 
+    network segments.
+
+* **Network correctness tesing**::
+
+    This kind of testing is used for testing correctness of network filters 
+    (firewalls) of how they separate different network segments.
+
+* **Network security testing**::
+  
+    This kind of testing is used for testing of network firewalls and prevention 
+    of common attacks on different network segments.
+
+* **Network intrusion testing**::
+  
+    This kind of testing is used for testing of intrusion detection systems and 
+    common attacks on any network services.
+  
+* **Host intrusion testing**::
+  
+    This kind of testing is used for testing of host intrusion detection systems 
+    and common attacks on.
+
+.. note::
+
+    It must be evaluated what should be tested and what does not need to be tested.
+    Testing first three phases should be trivial enough. Testing last two phases is
+    more complicated and only common things may be tested.
