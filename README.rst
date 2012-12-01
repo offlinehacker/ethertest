@@ -110,10 +110,12 @@ To ssh to virtualbox use
 Testing
 -------
 
-.. note::
+    .. note::
 
-    Tests are located inside `./ethertest/tests/`.
+        Tests are located inside `./ethertest/tests/`.
 
-We use nose for running tests::
+We use nose for running tests
 
-    $ python setup.py test
+    ::
+
+        $ python setup.py test
