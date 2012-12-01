@@ -1,11 +1,12 @@
 #virtualenv
-bin/*
-ethertest.egg-info/*
-include/*
-lib/*
+bin/
+ethertest.egg-info/
+include/
+lib/
 local
-man/*
-share/*
+man/
+share/
+build/
 
 #bootstrap
 eggs/
