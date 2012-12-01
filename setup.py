@@ -27,13 +27,19 @@ setup(name='ethertest',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
+      dependency_links =
+            ["https://github.com/jwiegley/scapy/tarball/master#egg=scapy-2.1.1-dev"],
       install_requires=[
           # list project dependencies
           'scapy',
           'pyx',
           'gnuplot-py',
           'numpy',
-          'nose'
+          'nose',
+          'sphinx',
+          'fabric',
+          'cuisine',
+          'pyyaml'
       ],
       test_suite="ethertest.tests"
 )
