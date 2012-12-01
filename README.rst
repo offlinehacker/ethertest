@@ -25,13 +25,13 @@ Requierments:
 * `Vagrant <http://downloads.vagrantup.com>`_
 * System packages: `iptables`, `tunctl`, `dnsmasq`
 
-development::
+Development::
 
     $ git clone git@github.com:offlinehacker/ethertest.git
     $ cd ethertest
     $ python setup.py develop
 
-update::
+Update::
 
     $ git pull origin master
 
