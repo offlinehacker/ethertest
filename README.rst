@@ -93,6 +93,10 @@ To shut down virtualbox use::
 
     To make it persistent edit your `~/.profile` file.
 
+To ssh to virtualbox use::
+
+    $ vagrant ssh [name]
+
 Testing
 -------
 
