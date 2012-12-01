@@ -13,10 +13,10 @@ System requierments:
   hardware virtualization is not a requierment.
 * 2Gigs or more memory
 
-.. note::
+    .. note::
 
-    VirtualBox can run inside os-based virtualization like openvz or lxc,
-    that's also why we use bridge networking inside virtual boxe-s(host-only does not work).
+        VirtualBox can run inside os-based virtualization like openvz or lxc,
+        that's also why we use bridge networking inside virtual boxe-s(host-only does not work).
 
 Requierments:
 
@@ -35,67 +35,77 @@ Update::
 
     $ git pull origin master
 
-Ubuntu 12.04 instructions::
+Ubuntu 12.04 instructions
 
-    $ wget http://download.virtualbox.org/virtualbox/4.2.4/virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
-    $ sudo dpkg -i virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
-    $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_i686.deb
-    $ sudo dpkg -i vagrant_1.0.5_i686.deb
-    $ sudo apt-get install python python-dev python-virtualenv dnsmasq iptables uml-utilities
-    $ git clone git@github.com:offlinehacker/ethertest.git
-    $ virtualenv --no-site-packages --python=python2.7 ethertest
-    $ cd ethertest
-    $ source bin/activate
-    $ python setup.py develop
+    ::
 
-.. note::
+        $ wget http://download.virtualbox.org/virtualbox/4.2.4/virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
+        $ sudo dpkg -i virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
+        $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_i686.deb
+        $ sudo dpkg -i vagrant_1.0.5_i686.deb
+        $ sudo apt-get install python python-dev python-virtualenv dnsmasq iptables uml-utilities
+        $ git clone git@github.com:offlinehacker/ethertest.git
+        $ virtualenv --no-site-packages --python=python2.7 ethertest
+        $ cd ethertest
+        $ source bin/activate
+        $ python setup.py develop
 
-    To activate and deactivate python virtualenv use `source bin/activate` and `deactivate` commands.
+    .. note::
+
+        To activate and deactivate python virtualenv use `source bin/activate` and `deactivate` commands.
 
 Bringing up virtual box-es
 --------------------------
 
-.. note::
+    .. note::
 
-    Configurations for virtual box-es are located inside `Vagrantfile`.
+        Configurations for virtual box-es are located inside `Vagrantfile`.
 
 First you need to start your network, dhcp server and nat.
-Please make sure `tunctl`, `dnsmaq` and `iptables` commands are installed::
+Please make sure `tunctl`, `dnsmaq` and `iptables` commands are installed
 
-    $ fab netstart
-    $ fab dhcp
-    $ fab natstart
+    ::
 
-.. note::
+        $ fab netstart
+        $ fab dhcp
+        $ fab natstart
 
-    Configuration for network subnets(interfaces) are located inside `fabfile.py`.
-    `VirtualBox` will bridge with virtual intefaces as specified inside `Vagrantfile`.
+    .. note::
 
-To bring-up virtual box use::
+        Configuration for network subnets(interfaces) are located inside `fabfile.py`.
+        `VirtualBox` will bridge with virtual intefaces as specified inside `Vagrantfile`.
 
-    $ vagrant up [name]
+* To bring-up virtual box use
+  
+    ::
 
-To shut down virtualbox use::
+        $ vagrant up [name]
 
-    $ vagrant halt [name]
+* To shut down virtualbox use
 
-.. note::
+    ::
 
-    You can also start virtualbox and control and debug your running virtual box-es
-    form there.
+        $ vagrant halt [name]
 
-.. warning::
+    .. note::
 
-    If `vagrant` command is not avalible you must setup your search `PATH` variable.
-    You can set it by doing something like this::
+        You can also start virtualbox and control and debug your running virtual box-es
+        form there.
 
-        $ export PATH=$PATH:/opt/vagrant/bin
+    .. warning::
+
+        If `vagrant` command is not avalible you must setup your search `PATH` variable.
+        You can set it by doing something like this::
+
+            $ export PATH=$PATH:/opt/vagrant/bin
 
     To make it persistent edit your `~/.profile` file.
 
-To ssh to virtualbox use::
+To ssh to virtualbox use
 
-    $ vagrant ssh [name]
+    ::
+
+        $ vagrant ssh [name]
 
 Testing
 -------
