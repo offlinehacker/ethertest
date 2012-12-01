@@ -12,8 +12,8 @@ eggs/
 develop-eggs/
 bootstrap.py
 
-#glacier
-.glacier
+#vagrant
+.vagrant
 
 #python
 *.pyc
