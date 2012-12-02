@@ -15,7 +15,7 @@ version = '0.1dev'
 setup(name='ethertest',
       version=version,
       description="Testing bed for ip networks",
-      long_description=read('README.md')+read("LICENSE"),
+      long_description=read('README.rst')+read("LICENSE"),
       classifiers=[
         "Programming Language :: Python",
         ],
@@ -28,7 +28,7 @@ setup(name='ethertest',
       include_package_data=True,
       zip_safe=False,
       dependency_links =
-            ["https://github.com/jwiegley/scapy/tarball/master#egg=scapy-2.1.1-dev"],
+            ["https://github.com/offlinehacker/scapy/tarball/master#egg=scapy-2.1.1-dev"],
       install_requires=[
           # list project dependencies
           'scapy',
