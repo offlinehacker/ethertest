@@ -4,6 +4,7 @@
 Vagrant::Config.run do |config|
   config.vm.define :router do |router_config|
     router_config.vm.box = "router"
+    router_config.vm.host_name = "router"
     router_config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
     # Network config
@@ -18,6 +19,9 @@ Vagrant::Config.run do |config|
 
     # Shared folders
     router_config.vm.share_folder "files", "/etc/puppet/files", "files" # Fix for puppet files
+
+    # Preprovisioning config
+    router_config.vm.provision :shell, :path => "bootstrap-vagrant.sh"
 
     # Puppet
     router_config.vm.provision :puppet do |puppet|

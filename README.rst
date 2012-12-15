@@ -21,21 +21,32 @@ System requierments:
 Requierments:
 
 * Python 2.7
-* `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_
-* `Vagrant <http://downloads.vagrantup.com>`_
+* `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ 4.2.4 or newer
+* `Vagrant <http://downloads.vagrantup.com>`_ 1.0.5 or newer
 * System packages: `iptables`, `tunctl`, `dnsmasq`
 
 Development::
 
     $ git clone git@github.com:offlinehacker/ethertest.git
+    $ git submodule update
     $ cd ethertest
     $ python setup.py develop
 
-Update::
+Update
 
-    $ git pull origin master
+    ::
 
-Ubuntu 12.04 instructions
+        $ git pull origin master
+        $ git submodule update
+        $ vagrant destroy
+        $ vagrant up
+
+    .. note::
+        
+        `vagrant provision` should do the task in most cases
+
+
+Ubuntu 12.04/12.10 instructions
 
     ::
 
@@ -53,6 +64,9 @@ Ubuntu 12.04 instructions
     .. note::
 
         To activate and deactivate python virtualenv use `source bin/activate` and `deactivate` commands.
+
+        If you are having problems with installing vagrant try to install x64 version. On the other hand
+        if you are having problems with numpy try `pip install numpy`, and then again `python setup.py develop`
 
 Bringing up virtual box-es
 --------------------------
