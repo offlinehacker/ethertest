@@ -13,6 +13,19 @@ class profile::router {
             "set iface[. = 'eth1']/gateway 192.168.10.1",
         ],
     }
+
+    sysctl { "net.ipv4.ip_forward":
+        ensure  => present,
+        value   => "1",
+        comment => "Enable ipv4 forwarding",
+    }
+
+    sysctl { "net.ipv6.conf.all.forwarding":
+        ensure  => present,
+        value   => "1",
+        comment => "Enable ipv6 forwarding",
+    }
+
 }
 
 include profile::router
