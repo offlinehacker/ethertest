@@ -21,7 +21,7 @@ Vagrant::Config.run do |config|
     router_config.vm.share_folder "files", "/etc/puppet/files", "files" # Fix for puppet files
 
     # Preprovisioning config
-    router_config.vm.provision :shell, :path => "bootstrap-vagrant.sh"
+    router_config.vm.provision :shell, :path => "update-puppet.sh"
 
     # Puppet
     router_config.vm.provision :puppet do |puppet|
