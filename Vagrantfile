@@ -20,7 +20,7 @@ Vagrant::Config.run do |config|
     # Shared folders
     router_config.vm.share_folder "files", "/etc/puppet/files", "files" # Fix for puppet files
 
-    # Preprovisioning config
+    # Update puppet before provision
     router_config.vm.provision :shell, :path => "update-puppet.sh"
 
     # Puppet
