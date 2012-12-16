@@ -133,3 +133,17 @@ We use nose for running tests
     ::
 
         $ python setup.py test
+
+Building docs
+-------------
+
+Documentation is located in `docs/` folder. To build it do
+
+    ::
+
+        $ sphinx-build -b html docs/ build/
+
+    .. note::
+
+        Documentation is written in `reStructuredText <http://docutils.sourceforge.net/rst.html>`_
+        markup language and is using `sphinx <http://sphinx-doc.org/>`_ speciffics and builders.
