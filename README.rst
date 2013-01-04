@@ -134,6 +134,10 @@ We use nose for running tests
 
         $ python setup.py test
 
+    .. note::
+        
+        For testing security of ipv6 you need thc-ipv6 tools installed.
+
 Building docs
 -------------
 
