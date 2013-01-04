@@ -17,8 +17,8 @@ class profile::prod {
         family => "inet6",
         changes => [
                 "set method static",
-                "set address 2001:db8:0:0:3::2",
-                "set netmask 80",
+                "set address 2001:db8:0:3::2",
+                "set netmask 64",
             ],
     }
 

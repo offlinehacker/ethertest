@@ -24,8 +24,8 @@ class profile::router {
         family => "inet6",
         changes => [
                 "set method static",
-                "set address 2001:db8:0:0:1::1",
-                "set netmask 80",
+                "set address 2001:db8:0:1::1",
+                "set netmask 64",
             ],
     }
 
@@ -36,7 +36,7 @@ class profile::router {
             'MaxRtrAdvInterval' => 30,
         },
         prefixes => {
-            '2001:db8:0:0:1::/80' => {
+            '2001:db8:0:1::/64' => {
             'AdvOnLink'     => 'on',
             'AdvAutonomous' => 'on',
             },
@@ -59,8 +59,8 @@ class profile::router {
         family => "inet6",
         changes => [
                 "set method static",
-                "set address 2001:db8:0:0:2::1",
-                "set netmask 80",
+                "set address 2001:db8:0:2::1",
+                "set netmask 64",
             ],
     }
 
@@ -81,7 +81,7 @@ class profile::router {
         changes => [
                 "set method static",
                 "set address 2001:db8::1",
-                "set netmask 80",
+                "set netmask 64",
             ],
     }
 
