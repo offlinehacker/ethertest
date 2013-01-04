@@ -6,10 +6,15 @@ class profile::router {
         family => "inet",
         changes => [
                 "set method static",
-                "set address 192.168.10.1",
-                "set netmask 255.255.255.0",
-                "set network 192.168.10.0",
+                "set address 10.1.0.1",
+                "set netmask 255.255.0.0",
+                "set network 10.1.0.0",
             ],
+    }
+
+    dnsmasq::conf { 'another-config':
+        ensure  => present,
+        content => 'dhcp-range=10.1.0.10,10.1.0.253,12h',
     }
 
     ifconfig { "private_inet6":
@@ -22,14 +27,13 @@ class profile::router {
             ],
     }
 
-
     ifconfig { "prod":
         device => "eth3",
         family => "inet",
         changes => [
                 "set method static",
                 "set address 10.2.0.1",
-                "set netmask 255.255.255.0",
+                "set netmask 255.255.0.0",
                 "set network 10.2.0.0",
             ],
     }
