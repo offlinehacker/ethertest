@@ -1,7 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require 'vagrant-hiera'
+begin
+    require 'vagrant-hiera'
+rescue LoadError
+    puts "Please install vagrant-hiera before running your virtual box-es"
+end
 
 Vagrant::Config.run do |config|
   config.vm.define :router do |router_config|
@@ -35,9 +39,13 @@ Vagrant::Config.run do |config|
     end
 
     # Hiera
-    router_config.hiera.config_path = "./puppet"
-    router_config.hiera.config_file = "hiera.yaml"
-    router_config.hiera.data_path = "./puppet/hieradata"
+    begin
+        router_config.hiera.config_path = "./puppet"
+        router_config.hiera.config_file = "hiera.yaml"
+        router_config.hiera.data_path = "./puppet/hieradata"
+    rescue NoMethodError
+        puts "Please install vagrant-hiera before running your virtual box-es"
+    end
   end
 
   config.vm.define :loophole do |loophole_config|
