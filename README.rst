@@ -31,6 +31,8 @@ Development::
     $ git submodule update
     $ cd ethertest
     $ python setup.py develop
+    $ vagrant gem install vagrant-hiera
+    $ vagrant up [name]
 
 Update
 
