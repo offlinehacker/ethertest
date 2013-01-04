@@ -98,4 +98,62 @@ Vagrant::Config.run do |config|
     end
   end
 
+  config.vm.define :prod do |prod_config|
+    prod_config.vm.box = "prod"
+    prod_config.vm.host_name = "prod"
+    prod_config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+
+    prod_config.vm.customize ["modifyvm", :id, "--memory", "128"]
+
+    # Network config
+    prod_config.vm.network :bridged, :adapter => 1, :bridge => "manage", :mac => "080027000004", :auto_config => false  # managment
+    prod_config.vm.network :bridged, :adapter => 4, :bridge => "prod", :auto_config => false # production
+
+    # Ssh options
+    prod_config.ssh.port = 22
+    prod_config.ssh.host = "192.168.0.7"
+
+    # Shared folders
+    prod_config.vm.share_folder "files", "/etc/puppet/files", "files" # Fix for puppet files
+
+    # Update puppet before provision
+    prod_config.vm.provision :shell, :path => "update-puppet.sh"
+
+    # Puppet
+    prod_config.vm.provision :puppet do |puppet|
+        puppet.manifests_path = "puppet/manifests"
+        puppet.module_path = "puppet/modules"
+        puppet.manifest_file = "prod.pp"
+    end
+  end
+
+  config.vm.define :priv do |priv_config|
+    priv_config.vm.box = "priv"
+    priv_config.vm.host_name = "priv"
+    priv_config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+
+    priv_config.vm.customize ["modifyvm", :id, "--memory", "128"]
+
+    # Network config
+    priv_config.vm.network :bridged, :adapter => 1, :bridge => "manage", :mac => "080027000005", :auto_config => false  # managment
+    priv_config.vm.network :bridged, :adapter => 3, :bridge => "priv", :auto_config => false # private
+
+    # Ssh options
+    priv_config.ssh.port = 22
+    priv_config.ssh.host = "192.168.0.8"
+
+    # Shared folders
+    priv_config.vm.share_folder "files", "/etc/puppet/files", "files" # Fix for puppet files
+
+    # Update puppet before provision
+    priv_config.vm.provision :shell, :path => "update-puppet.sh"
+
+    # Puppet
+    priv_config.vm.provision :puppet do |puppet|
+        puppet.manifests_path = "puppet/manifests"
+        puppet.module_path = "puppet/modules"
+        puppet.manifest_file = "priv.pp"
+    end
+  end
+
 end
