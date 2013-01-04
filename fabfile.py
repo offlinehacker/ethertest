@@ -160,3 +160,4 @@ def natstart(dev):
         sudo("echo 1 > /proc/sys/net/ipv4/ip_forward")
         sudo("/sbin/iptables -t nat -A POSTROUTING -o %s -j MASQUERADE" %dev)
         sudo("/sbin/iptables -A FORWARD -j ACCEPT")
+	sudo("echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward")
