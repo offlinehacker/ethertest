@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'vagrant-hiera'
+
 Vagrant::Config.run do |config|
   config.vm.define :router do |router_config|
     router_config.vm.box = "router"
@@ -31,6 +33,11 @@ Vagrant::Config.run do |config|
         puppet.module_path = "puppet/modules"
         puppet.manifest_file = "router.pp"
     end
+
+    # Hiera
+    router_config.hiera.config_path = "./puppet"
+    router_config.hiera.config_file = "hiera.yaml"
+    router_config.hiera.data_path = "./puppet/hieradata"
   end
 
   config.vm.define :loophole do |loophole_config|
