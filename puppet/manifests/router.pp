@@ -1,3 +1,5 @@
+include radvd
+
 class profile::router {
     class   { "augeas": }
 
@@ -22,6 +24,19 @@ class profile::router {
             ],
     }
 
+    radvd::interface { 'eth2':
+        options => {
+            'AdvSendAdvert'     => 'on',
+            'MinRtrAdvInterval' => 10,
+            'MaxRtrAdvInterval' => 30,
+        },
+        prefixes => {
+            '2001:db8:0:0:1::/80' => {
+            'AdvOnLink'     => 'on',
+            'AdvAutonomous' => 'on',
+            },
+        },
+    }
 
     ifconfig { "prod":
         device => "eth3",
@@ -44,7 +59,6 @@ class profile::router {
             ],
     }
 
-
     ifconfig { "ext":
         device => "eth1",
         family => "inet",
@@ -65,7 +79,6 @@ class profile::router {
                 "set netmask 80",
             ],
     }
-
 
     sysctl { "net.ipv4.ip_forward":
         ensure  => present,

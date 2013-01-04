@@ -10,3 +10,9 @@
 [submodule "puppet/modules/iptables"]
 	path = puppet/modules/iptables
 	url = https://github.com/offlinehacker/offlinehacker-iptables.git
+[submodule "puppet/modules/radvd"]
+	path = puppet/modules/radvd
+	url = https://github.com/fpletz/puppet-radvd.git
+[submodule "puppet/modules/concat"]
+	path = puppet/modules/concat
+	url = https://github.com/ripienaar/puppet-concat.git
