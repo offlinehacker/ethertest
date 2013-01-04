@@ -5,11 +5,12 @@
    :synopsis: Different utils for configuring local testing network
 """
 
+from __future__ import print_function
+
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
 
-from fabric.api import task, env, run, sudo
-from fabric.contrib.files import sed
+from fabric.api import task, env, run, sudo, local, cd, settings
 
 from cuisine import *
 
@@ -19,7 +20,9 @@ env.settings = {
     "managment": {
         "name": "manage",
         "ip": "192.168.0.1/24",
-        "static": [{"mac":"08:00:27:12:96:98", "ip":"192.168.0.2"}],
+        "static": [{"mac":"08:00:27:00:00:01", "ip":"192.168.0.2"},
+                   {"mac":"08:00:27:00:00:02", "ip":"192.168.0.5"},
+                   {"mac":"08:00:27:00:00:03", "ip":"192.168.0.6"}],
         "dhcp_start": "192.168.0.10",
         "dhcp_stop": "192.168.0.255"
     },
@@ -75,6 +78,8 @@ def mknet(name, ip4="192.168.1.1/24", ip6=None):
     :type ip6: str
     """
 
+    print("Creating new network device %s with ipv4 %s and ipv6 %s"
+          %(name, ip4, ip6))
     with mode_local():
         if not run("ifconfig %s"% name).succeeded:
             sudo("tunctl -g vboxusers -t %s" %name)
@@ -85,6 +90,8 @@ def mknet(name, ip4="192.168.1.1/24", ip6=None):
         if ip6:
             sudo("ip -6 addr add %s dev %s" %(ip6, name))
 
+    print("Network device created")
+
 @task
 def rmnet(name):
     """
@@ -94,9 +101,13 @@ def rmnet(name):
     :type name: str
     """
 
+    print("Removing network device %s" %name)
+
     with mode_local():
         sudo("ifconfig %s down" %name)
         sudo("tunctl -d %s" %name)
+
+    print("Network device removed")
 
 @task
 def dhcp():
@@ -107,7 +118,7 @@ def dhcp():
     with mode_local():
         gen_template("dnsmasq.conf")
         if file_exists("/var/run/dnsmasq.pid"):
-            print "dnsmasq is already running, killing it"
+            print("dnsmasq is already running, killing it")
             sudo("kill %s" %run("cat /var/run/dnsmasq.pid"))
             sudo("rm /var/run/dnsmasq.pid")
 
@@ -121,7 +132,7 @@ def dhcp_stop():
 
     with mode_local():
         if file_exists("/var/run/dnsmasq.pid"):
-            print "dnsmasq is already running, killing it"
+            print("dnsmasq is already running, killing it")
             sudo("kill %s" %run("cat /var/run/dnsmasq.pid"))
             sudo("rm /var/run/dnsmasq.pid")
 
@@ -131,6 +142,7 @@ def netstart():
     Creates all network devices specified in `env.settins.subnets`, requires tunctl
     """
 
+    print("Starting network")
     with mode_local():
         mknet(env.settings["managment"]["name"], env.settings["managment"]["ip"])
         for name, subnet in env.settings["subnets"].iteritems():
@@ -142,10 +154,14 @@ def netstop():
     Removes all netwok devices specified in `env.settings.subnets`, requires tunctl
     """
 
+    print("Stopping network")
+
     with mode_local():
         rmnet(env.settings["managment"]["name"])
         for name, subnet in env.settings["subnets"].iteritems():
             rmnet(name)
+
+    print("Network stopped")
 
 @task
 def natstart(dev):
@@ -156,7 +172,11 @@ def natstart(dev):
     :type dev: str
     """
 
+    print("Creating nat iptables rules")
+
     with mode_local():
         sudo("echo 1 > /proc/sys/net/ipv4/ip_forward")
         sudo("/sbin/iptables -t nat -A POSTROUTING -o %s -j MASQUERADE" %dev)
         sudo("/sbin/iptables -A FORWARD -j ACCEPT")
+
+    print("Nat iptables rules created")
