@@ -39,13 +39,15 @@ Update
     ::
 
         $ git pull origin master
-        $ git submodule update
-        $ vagrant destroy
-        $ vagrant up
+        $ git submodule update --init
+        $ vagrant destroy (only if you are having problems)
+        $ vagrant up [name]
 
     .. note::
         
-        `vagrant provision` should do the task in most cases
+        You don't need to destroy, `vagrant provision` should do the task 
+        in most cases. If you are having problems first try to halt (vagrant halt -f name)
+        or reload you virtual machines.
 
 
 Ubuntu 12.04/12.10 instructions
