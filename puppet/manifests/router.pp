@@ -80,7 +80,7 @@ class profile::router {
         family => "inet6",
         changes => [
                 "set method static",
-                "set address 2001:db8::1",
+                "set address 2001:db8:0:0::1",
                 "set netmask 64",
             ],
     }

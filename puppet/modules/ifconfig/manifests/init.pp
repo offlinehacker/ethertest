@@ -18,7 +18,7 @@ define ifconfig($device, $family, $changes, ) {
     }
 
     exec {"$name.ifdown":
-        command => "/sbin/ifconfig $device down",
+        command => "/sbin/ifdown $device",
         refreshonly => true, # Only execute on notification
         notify => Exec["$name.ifup"]
     }
