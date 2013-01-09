@@ -9,7 +9,7 @@
     url = https://github.com/offlinehacker/puppetlabs-stdlib.git
 [submodule "puppet/modules/iptables"]
 	path = puppet/modules/iptables
-	url = https://github.com/offlinehacker/offlinehacker-iptables.git
+	url = https://github.com/offlinehacker/puppet-iptables.git
 [submodule "puppet/modules/dnsmasq"]
 	path = puppet/modules/dnsmasq
 	url = https://github.com/saz/puppet-dnsmasq.git
