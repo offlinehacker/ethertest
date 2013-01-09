@@ -6,9 +6,10 @@ class profile::prod {
         family => "inet",
         changes => [
                 "set method static",
-                "set address 10.3.0.2",
+                "set address 10.2.0.10",
                 "set netmask 255.255.255.0",
-                "set network 10.3.0.0",
+                "set network 10.2.0.0",
+                "set gateway 10.2.0.1"
             ],
     }
 
@@ -19,6 +20,7 @@ class profile::prod {
                 "set method static",
                 "set address 2001:db8:0:2::10",
                 "set netmask 64",
+                "set gateway 2001:db8:0:2::1",
             ],
     }
 

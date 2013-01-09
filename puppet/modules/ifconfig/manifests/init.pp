@@ -1,3 +1,21 @@
+$interfaces = "/etc/network/interfaces"
+
+define ifconfig::hooks($changes){
+    augeas  { "ifconfig.hooks.$name.edit" :
+        context => "/files/etc/network/interfaces/iface[last()]",
+        changes =>  $changes,
+        notify => Service["networking"],
+        lens => "Interfaces.lns",
+        incl => "$interfaces"
+    }
+
+    service { "networking":
+        ensure  => "running",
+        enable  => "true",
+        require => Augeas["ifconfig.hooks.$name.edit"],
+    }
+}
+
 define ifconfig($device, $family, $changes, ) {
     augeas  { "ifconfig.$name.add" :
         context => "/files/etc/network/interfaces",
@@ -7,14 +25,18 @@ define ifconfig($device, $family, $changes, ) {
                 "set iface[last()]/family $family",
                 "set iface[last()]/method static",
                 ],
-        onlyif => ["match iface[ . = '$device' and family ='$family'] size==0"]
+        onlyif => ["match iface[ . = '$device' and family ='$family'] size==0"],
+        lens => "Interfaces.lns",
+        incl => "$interfaces"
     }
 
     augeas  { "ifconfig.$name" :
         context => "/files/etc/network/interfaces/iface[ . = '$device' and family = '$family']",
         changes =>  $changes,
         notify => Exec["$name.ifdown"],
-        require => Augeas["ifconfig.$name.add"]
+        require => Augeas["ifconfig.$name.add"],
+        lens => "Interfaces.lns",
+        incl => "$interfaces"
     }
 
     exec {"$name.ifdown":
