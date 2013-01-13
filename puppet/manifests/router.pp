@@ -62,6 +62,16 @@ class profile::router::network {
             ],
     }
 
+    class { "ipsec::base": }
+
+    ipsec::peer{ "prod":
+        local_ip => "::/0", 
+        peer_ip => "2001:db8:0:2::10",
+        encap => "transport",
+        authmethod => "psk",
+        psk => "test",
+    }
+
     ifconfig { "ext":
         device => "eth1",
         family => "inet",
@@ -93,7 +103,6 @@ class profile::router::network {
             set post-up[3] 'ip rule add from 192.168.10.0/24 table $net'
             set post-up[4] 'ip route add table $net 10.1.0.0/16 dev eth2'
             set post-up[5] 'ip rule add from 10.1.0.0/16 table $net'
-            set post-up[6] 'ip route add table $net 10.2.0.0/16 dev eth3'
             
             set pre-up[2] 'ip route flush table $prod'
             set post-up[7] 'ip route add table $prod 192.168.10.0/24 dev eth1'
@@ -108,7 +117,6 @@ class profile::router::network {
             set post-up[13] 'ip -6 rule add from 2001:db8::/64 table $net'
             set post-up[14] 'ip -6 route add table $net 2001:db8:0:1::/64 dev eth2'
             set post-up[15] 'ip -6 rule add from 2001:db8:0:1::/64 table $net'
-            set post-up[16] 'ip -6 route add table $net 2001:db8:0:2::/64 dev eth3'
 
             set pre-up[4] 'ip -6 route flush table $prod'
             set post-up[17] 'ip -6 route add table $prod 2001:db8::/64 dev eth1'

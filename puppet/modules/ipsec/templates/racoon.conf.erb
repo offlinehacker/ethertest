@@ -1,0 +1,13 @@
+path certificate "<%= ssl_path %>";
+path pre_shared_key "/etc/racoon/psk.txt";
+path include "/etc/racoon";
+
+<% if listen -%>
+listen {
+<% listen.each do |ip| -%>
+	isakmp <%= ip %> [500];
+<% end -%>
+}
+<% end -%>
+
+include "peers.d/*.conf";

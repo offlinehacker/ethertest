@@ -1,0 +1,7 @@
+#!/usr/sbin/setkey -f
+
+flush;
+spdflush;
+
+spdadd ::/0 ::/0 icmp6 -P out none;
+spdadd ::/0 ::/0 icmp6 -P in none;
