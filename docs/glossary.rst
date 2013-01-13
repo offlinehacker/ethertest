@@ -511,3 +511,17 @@
             - sendpees6: a tool by willdamn@gmail.com, which generates a neighbor
               solicitation requests with a lot of CGAs (crypto stuff ;-) to keep the
               CPU busy. nice.
+    
+    scapy
+        `Scapy <http://www.secdev.org/projects/scapy/>`_ is a powerful interactive packet manipulation program.
+
+    vagrant
+    Vagrant
+        `Vagrant <http://www.vagrantup.com/>`_ Vagrant uses Oracle’s VirtualBox
+        to build configurable, lightweight, and portable virtual machines dynamically.
+       
+    puppet
+    Puppet
+        `Puppet <http://puppetlabs.com/>`_ Puppet is IT automation software that
+        helps system administrators manage infrastructure throughout its lifecycle,
+        from provisioning and configuration to patch management and compliance. 
