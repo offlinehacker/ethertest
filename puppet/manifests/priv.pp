@@ -25,7 +25,7 @@ class profile::private {
 
     sysctl { "net.ipv6.conf.all.forwarding":
         ensure  => present,
-        value   => "1",
+        value   => "0",
         comment => "Enable ipv6 forwarding",
     }
 
