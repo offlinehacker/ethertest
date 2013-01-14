@@ -114,7 +114,15 @@ class ipsec::base ($listen=false, $ssl_path="/etc/ssl") {
 # Depends:
 #  gen_puppet
 #
-define ipsec::peer ($local_ip, $peer_ip, $encap="tunnel", $exchange_mode="main", $proposal_check=false, $peer_asn1dn=false, $localnet=false, $remotenet=false, $authmethod="rsasig", $psk=false, $cert="certs/${fqdn}.pem", $key="private/${fqdn}.key", $cafile="cacert.pem", $phase1_enc="aes 256", $phase1_hash="sha1", $phase1_dh="5", $phase1_lifetime_time=false, $phase2_dh="5", $phase2_enc="aes 256", $phase2_auth="hmac_sha1", $phase2_lifetime_time=false, $phase2_lifetime_byte=false, $policy_level="unique") {
+define ipsec::peer ($local_ip, $peer_ip, $encap="tunnel", $exchange_mode="main", 
+                    $proposal_check=false, $peer_asn1dn=false, $localnet=false, 
+                    $remotenet=false, $authmethod="rsasig", $psk=false, 
+                    $cert="certs/${fqdn}.pem", $key="private/${fqdn}.key", 
+                    $cafile="cacert.pem", $phase1_enc="aes 256", $phase1_hash="sha1", 
+                    $phase1_dh="5", $phase1_lifetime_time=false, $phase2_dh="5", 
+                    $phase2_enc="aes 256", $phase2_auth="hmac_sha1", 
+                    $phase2_lifetime_time=false, $phase2_lifetime_byte=false, 
+                    $policy_level="unique") {
   $resname = "ipsec::peer[${name}]"
   $my_authmethod = $authmethod ? {
     /(rsasig|pre_shared_key)/ => $authmethod,
