@@ -27,7 +27,6 @@ The following is used to run the project::
 
 
 :term:`Vagrant`
----------------
 
 Vagrant uses Oracle’s VirtualBox to build configurable, lightweight, and portable
 virtual machines dynamically. After that it uses Puppet to provision them. That
@@ -36,7 +35,6 @@ From running a router with preconfigured routing to simulating a private machine
 getting an IP with dhcp from the router.
 
 :term:`Puppet`
---------------
 
 It gives us the ability to configure the virtual machines once they are set up.
 That means it can install applications, manage and configure the system so they
@@ -45,7 +43,6 @@ network adapterswith different configurations, like using DHCP to get an IP from
 the router or setting static IPs.
 
 :term:`scapy`
-------------
 
 The author says it all: "Scapy is a powerful interactive packet manipulation program.
 It is able to forge or decode packets of a wide number of protocols, send them
@@ -65,7 +62,7 @@ This  is  a step by step how-to on setting up the testing environment. The follo
 directions are based for machines running Ubuntu 12.04 or 12.10.
 
 System requierments:
---------------------
+____________________
 
 * Any moderen linux distribution supported by vagrant and virtualbox
 * x86_64 or any other arhitecture supported by virtualbox,
@@ -78,7 +75,7 @@ System requierments:
     that's also why we use bridged networking inside virtual boxes (host-only does not work).
 
 Requierments:
--------------
+_____________
 
 * Python 2.7
 * `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_
@@ -86,7 +83,7 @@ Requierments:
 * System packages: `iptables`, `tunctl`, `dnsmasq`
 
 Development
--------------
+-----------
 
     ::
 
@@ -119,34 +116,35 @@ Update
         $ vagrant reload [name]
 
 Ubuntu 12.04/12.10 instructions
+_______________________________
 
     ::
 
-        $ wget http://download.virtualbox.org/virtualbox/4.2.4/virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
-        $ sudo dpkg -i virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
-        $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_i686.deb
-        $ sudo dpkg -i vagrant_1.0.5_i686.deb
-        $ sudo apt-get install python python-dev python-virtualenv dnsmasq iptables uml-utilities
-        $ git clone git@github.com:offlinehacker/ethertest.git
-        $ virtualenv --no-site-packages --python=python2.7 ethertest
-        $ cd ethertest
-        $ source bin/activate
-        $ python setup.py develop
+    $ wget http://download.virtualbox.org/virtualbox/4.2.4/virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
+    $ sudo dpkg -i virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
+    $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_i686.deb
+    $ sudo dpkg -i vagrant_1.0.5_i686.deb
+    $ sudo apt-get install python python-dev python-virtualenv dnsmasq iptables uml-utilities
+    $ git clone git@github.com:offlinehacker/ethertest.git
+    $ virtualenv --no-site-packages --python=python2.7 ethertest
+    $ cd ethertest
+    $ source bin/activate
+    $ python setup.py develop
 
-.. note::
+  .. note::
 
     To activate and deactivate python virtual environment use
     "$ source bin/activate" and "deactivate" commands.
 
-.. note::
+  .. note::
 
-    If you are having problems with installing vagrant try installing the x64 version.
+     If you are having problems with installing vagrant try installing the x64 version.
     ::
 
     $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_x86_64.deb
     $ sudo dpkg -i vagrant_1.0.5_x86_64.deb
 
-.. note::
+  .. note::
 
     If you're having problems developing setup.py try installing numpy before running it::
 
@@ -156,13 +154,13 @@ Ubuntu 12.04/12.10 instructions
 Bringing up virtual box-es
 --------------------------
 
-.. note::
+  .. note::
 
     Configurations for the virtual boxes are located inside `Vagrantfile`.
 
 * Please make sure `tunctl`, `dnsmasq` and `iptables` commands are installed.
 
-.. note::
+  .. note::
 
     There must be no dnsmasq process running else vagrant won't start up.
     Check it with::
@@ -187,7 +185,6 @@ Bringing up virtual box-es
     Configuration for network subnets(interfaces) are located inside `fabfile.py`.
     `VirtualBox` will bridge with virtual intefaces as specified inside `Vagrantfile`.
 
-
 * To bring-up a virtual box use::
 
         $ vagrant up [name]
@@ -196,6 +193,14 @@ Bringing up virtual box-es
 
     In the included configuration the virtualboxes are Router, Priv(a private network),
     Prod(a development/production network)
+
+  .. note::
+
+    If getting errors about vagrant-hiera missing, please install it before running vagrant:
+
+    ::
+
+    $ vagrant gem install vagrant-hiera
 
 * To shut down a virtual box use
   
@@ -224,14 +229,99 @@ Bringing up virtual box-es
 
     $ vagrant ssh [name]
 
-------------------------------------------------
-Our networks and their respective configurations
-------------------------------------------------
+----------------
+Network topology
+----------------
 
-* Private network
+Network topology is the connection, arrangement or structure of a network.
+There are two categories of topology, :term:`Physical topology` which refers to
+the placement of the physical network components (be it routers, cables, etc.)
+and :term:`Logical topology` that shows how data fows through a network.
 
-  This network emulates a typical household computer with dynamically assigned
-  IPs.
+We divide them in 4 basic topologies which form all the possible network forms.
+    - bus
+    - star
+    - ring
+    - mesh
+
+**Bus topology**
+
+This topology consists of network elements connected to a single, shared cable.
+
+.. image:: _static/NetworkTopology-Bus.png
+
+Pros:
+    - cheap, economic cabling
+    - the medium is cheap and easy to handle
+    - easy to setup 
+    - easy to upgrade
+
+Cons:
+    - slows down when the network traffic rises
+    - errors are hard to notice
+    - interruption of the medium means network goes down
+
+**Star topology**
+
+Each nework host is connected directly with a central device called a hub or switch.
+
+.. image:: _static/NetworkTopology-Star.png
+
+Pros:
+    - easy connection of new hosts
+    - error on a device or cable doesn't mean the netork does down
+    - offers the possibility of a centralized control and management
+
+Cons:
+    - if the central device errs, the entire network goes down
+    - lots of cabling needed
+
+**Ring topology**
+
+Devices in this topology form a circle. Data travels in one direction and each device
+serves for keeping the signal strong. That means every device has to have a reciever for
+the incoming signal and a transmiter for the outbound signal.
+
+.. image:: _static/NetworkTopology-Ring.png
+
+Pros:
+    - no device has higher priority, they are equivalent
+    - network load doesn't increase with more hosts
+    - high connection reliability
+
+Cons:
+    - error on a device or cable means network goes down
+    - errors are hard to notice
+    - netork upgrade means connection down
+
+**Mesh topology**
+
+This topology connects each device with all the others in the netowrk,
+
+.. image:: _static/NetworkTopology-FullyConnected.png
+
+Pros:
+    - the system is stable because of the redundant connections
+
+Cons:
+    - expensive
+
+Our network configuration
+--------------------------
+
+Our network topology is of a star type. It consists of a router, a private and a production
+host, plus it has an internet virtualbox, which emulates "the outside". The router acts as a
+central hub, routing all connections from the internet (extsrv) to and from the other two hosts
+(priv and prod). It also contains ip routing tables.
+
+
+.. image _static/topology.png
+
+Private network
+_________________
+
+This network emulates a typical household computer with dynamically assigned
+IPs.
 
   .. note::
 
