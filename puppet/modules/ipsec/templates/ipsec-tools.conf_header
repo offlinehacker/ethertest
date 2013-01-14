@@ -3,5 +3,9 @@
 flush;
 spdflush;
 
-spdadd ::/0 ::/0 icmp6 -P out none;
-spdadd ::/0 ::/0 icmp6 -P in none;
+# Filter NDP traffic
+spdadd ::/0 ::/0 icmp6 135,0 -P out none;
+spdadd ::/0 ::/0 icmp6 135,0 -P in none;
+spdadd ::/0 ::/0 icmp6 136,0 -P out none;
+spdadd ::/0 ::/0 icmp6 136,0 -P in none;
+

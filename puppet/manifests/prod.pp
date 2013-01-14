@@ -41,9 +41,12 @@ class profile::prod {
     class { "ipsec::base": }
 
     ipsec::peer{ "prod":
-        local_ip => "::/0", 
+        policy_level => "require",
+        local_ip => "2001:db8:0:2::10",
         peer_ip => "2001:db8:0:2::1",
-        encap => "transport",
+        localnet => "2001:db8:0:2::10",
+        remotenet => "::/0", 
+        encap => "tunnel",
         authmethod => "psk",
         psk => "test",
     }

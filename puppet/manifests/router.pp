@@ -65,11 +65,14 @@ class profile::router::network {
     class { "ipsec::base": }
 
     ipsec::peer{ "prod":
-        local_ip => "::/0", 
+        policy_level => "require",
+        local_ip => "2001:db8:0:2::1",
         peer_ip => "2001:db8:0:2::10",
-        encap => "transport",
+        localnet => "::/0", 
+        remotenet => "2001:db8:0:2::10",
+        encap => "tunnel",
         authmethod => "psk",
-        psk => "test",
+        psk => "test"
     }
 
     ifconfig { "ext":
