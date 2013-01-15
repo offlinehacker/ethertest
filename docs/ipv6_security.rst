@@ -149,6 +149,34 @@ why, taken form `here <http://www.deployingipv6.net/index.php/archives/2007/06/0
     I think the remaining interesting question is how do we design a version of 
     RH0 which is both safe and useful.
 
+______
+ICMPv6
+______
+
+With ipv6 icmp has gained much signifficant role, because it's not only
+used for error control and flow control like in ipv4, but it has also replaced
+functionality that arp used to handle. 
+Fragmentation, Neighbor Discovery, and StateLess Address AutoConfiguration 
+(SLAAC) represent essential functionality which is now performed using ICMP messages. 
+At the same time ICMP messages are designed to be sent to multicast addresses 
+instead of unicast addresses.
+
+There are roughly several actions that could be taken to protect agains attackers
+abusing ICMPv6:
+
+* Configure firewall correctly to protect agains malicious ICMPv6 messages,
+  this is important for all kinds of environments, because this layer
+  of security newer hurts, but will in most cases save your ass.
+* Use :term:`IPSec`, this is especially feasible for production environemnts.
+* Use :term:`SEnD` mechanism instead of pure :term:`NDP` without using IPSec. 
+  SEnD uses RSA key pairs instead of IPSec to secure various ICMP messages.
+  Implementing this mechanism could be difficult, because not all devices support
+  it, but is again feasible for production environemnts.
+* Use "intelligent" deprecation tool like `NDPMon <http://ndpmon.sourceforge.net>`_.
+* Enable ipv6 privacy extensions on hosts using your network.
+
+Most of the :term:`THC-ipv6` tools are ment especially for pentesting ICMPv6 security.
+
 __________________
 Firewalling ICMPv6
 __________________
@@ -219,30 +247,6 @@ On the local network the following additional ICMPv6 messages must be accepted:
 ------------------------------
 IPv6, ICMPv6 and local attacks
 ------------------------------
-
-With ipv6 icmp has gained much signifficant role, because it's not only
-used for error control and flow control like in ipv4, but it has also replaced
-functionality that arp used to handle. 
-Fragmentation, Neighbor Discovery, and StateLess Address AutoConfiguration 
-(SLAAC) represent essential functionality which is now performed using ICMP messages. 
-At the same time ICMP messages are designed to be sent to multicast addresses 
-instead of unicast addresses.
-
-There are roughly several actions that could be taken to protect agains attackers
-abusing ICMPv6:
-
-* Configure firewall correctly to protect agains malicious ICMPv6 messages,
-  this is important for all kinds of environments, because this layer
-  of security newer hurts, but will in most cases save your ass.
-* Use :term:`IPSec`, this is especially feasible for production environemnts.
-* Use :term:`SEnD` mechanism instead of pure :term:`NDP` without using IPSec. 
-  SEnD uses RSA key pairs instead of IPSec to secure various ICMP messages.
-  Implementing this mechanism could be difficult, because not all devices support
-  it, but is again feasible for production environemnts.
-* Use "intelligent" deprecation tool like `NDPMon <http://ndpmon.sourceforge.net>`_.
-* Enable ipv6 privacy extensions on hosts using your network.
-
-Most of the :term:`THC-ipv6` tools are ment especially for pentesting ICMPv6 security.
 
 In this section we will present several possible attacks inside ipv6 networks and
 needed actions to prevent against. Also some tests will be written latter
