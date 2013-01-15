@@ -3,27 +3,20 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ethertest's documentation!
-=====================================
-
-Testbed ethernet networks
+Ethertest: testbed for IP netwoks
+=================================
 
 Contents:
 
 .. toctree::
     :maxdepth: 2
 
-    seminarska
-    ipv6_security
-    topology
+    intro
     environment
+    testing
+    topology
+    ipv6_security
+    ipsec_configuration
+    linux_deployment
     linux_standard_corporate
-    
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

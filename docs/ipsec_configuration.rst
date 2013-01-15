@@ -8,6 +8,7 @@ Here is a collections of different working IPSec configurations.
 
     * Add description how IPSec works
 
+-------------------------------------------
 Linux IPSec encryped lan(with IPv6 support)
 -------------------------------------------
 

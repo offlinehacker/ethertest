@@ -85,9 +85,9 @@ __________________________
 .. glossary::
 
     Standard corporate star type topology
-It consists of a router, a private and a production host. The router acts as a
-central hub, routing all connections from the internet to and from the other
-two hosts.
+        It consists of a router, a private and a production host. The router acts as a
+        central hub, routing all connections from the internet to and from the other
+        two hosts.
 
-    .. image:: _static/standardcorp.png
-        :width: 100%
+        .. image:: _static/standardcorp.png
+            :width: 100%

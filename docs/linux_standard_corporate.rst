@@ -2,26 +2,65 @@
 Standard corporate linux network configuration
 ==============================================
 
-This is example linux network configuration using standard corporate star type 
-network topology. 
+This is example linux network configuration using :term:`Standard corporate star 
+type topology`. 
 
-It consists of a router, a private and a production host, plus it has an internet
-virtualbox, which emulates "the outside". The router acts as a central hub,
-routing all connections from the internet (extsrv) to and from the other two hosts
-(priv and prod). It also contains ip routing tables.
+It consists of a router, a private and a production host, plus it has an external
+nextwork, which emulates "the outside", so called internet. The router acts as a 
+central hub, routing all connections from the internet (extsrv) to and from the 
+other two hosts (priv and prod). It also contains ip routing tables.
 
 .. image:: _static/stcorptop.png
     :width: 100%
 
---------------------------------------------
-Networks and their respective configurations
---------------------------------------------
+--------------
+Network policy
+--------------
 
-_______________
-Private network
-_______________
+We decided to create very strict netwok policy with following assumptions:
 
-  This network emulates a typical managed company in company with dynamically assigned
+__________
+Production
+__________
+
+Host from production network...
+
+* Cannot reach hosts on private network
+* Have port forwadings from external network
+* Cannot reach external network, but strict exceptions are possible
+* Have encrypted traffic to router
+* Cannot manage routers and other network equipment 
+* Can be managed only from managment network
+
+_______
+Private
+_______
+
+Host from private network...
+
+* Cannot reach production, but strict exceptions are possible
+* Can reach external network, but limited
+* Cannot manage routers and other network equipment 
+
+______
+Router
+______
+
+Router only allows relevant traffic like speciffied in...
+
+* :doc:`ipv6_security`
+
+... and other security speciffications
+
+----------------------------------------------
+Networks hosts their respective configurations
+----------------------------------------------
+
+____________
+Private host
+____________
+
+  This host is typical managed company computer with dynamically assigned
   IPs.
 
   .. note::
@@ -48,11 +87,11 @@ _______________
 
   Connected to the router's 'eth2' interface
 
-__________________
-Production network
-__________________
+_______________
+Production host
+_______________
 
-  This network emulates a production server with static IPs
+  This host is a production server with static IPs
 
   .. note::
 
@@ -86,17 +125,19 @@ __________________
 
   Connected to the router's 'eth3' interface
 
-__________
-The router
-__________
+______
+Router
+______
 
-  This emulates a router, in this case a linux system serving as a router
+This is a router, in this case a linux system serving as a router. It provides
+dynamic asignments of ips on private network, encrypts traffic on production
+network and block relevant traffic.
 
-  .. note::
+.. note::
 
     :download:`Configuration file download <../puppet/manifests/router.pp>`.
 
-  * Network configuration::
+* Network configuration::
 
     include radvd
 
@@ -162,7 +203,7 @@ __________
     
     }
 
-  * IPSec configuration::
+* IPSec configuration::
 
     class { "ipsec::base": }
 
@@ -177,10 +218,10 @@ __________
         psk => "test"
     }
 
-  This :term:`IPSec` configuration encrypts all trafic to peer 2001:db8:0:2::10
-  throught :term:`IPSec` tunnel.
+This :term:`IPSec` configuration encrypts all trafic to peer 2001:db8:0:2::10
+throught :term:`IPSec` tunnel.
 
-  * Secure policy based routing configuration::
+* Secure policy based routing configuration::
 
     $net = "1"
     $prod = "2"
@@ -215,12 +256,12 @@ __________
         "
     }
 
-  This policy based routing defines static routes that are devided in two segments
-  net and production. This allows to have another layer of security where we don't
-  allow routing from production to private environment. The main routing table is
-  used for managment.
+This policy based routing defines static routes that are devided in two segments
+net and production. This allows to have another layer of security where we don't
+allow routing from production to private environment. The main routing table is
+used for managment.
 
-  * Firewall configuration::
+* Firewall configuration::
 
    class router::firewall {
         package { "iptables-persistent":

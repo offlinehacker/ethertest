@@ -7,10 +7,12 @@ Something about IPv6
 --------------------
 
 - IPv6 development started in the early 1990 with few focus on security;
-- Some IPv4 well known security breaches like arp poisoning, address spoofing, etc. have their correspondent on IPv6;
+- Some IPv4 well known security breaches like arp poisoning, address spoofing, 
+  etc. have their correspondent on IPv6;
 - Some new IPv6 features create new vulnerabilities as well as transition process;
 - There are already many IPv6 hacking tools available for anyone on the Internet;
-- IPv6 deployment is still slow and vulnerabilities are not yet widely shared, but this scenario is about to change.
+- IPv6 deployment is still slow and vulnerabilities are not yet widely shared, 
+  but this scenario is about to change.
 
 
 It should be very easy to turn on IPv6 support and enable it to work, that
@@ -80,7 +82,7 @@ New IPv6 features and related security problems
     put more effort in configuring the network which means more chance of
     having security holes, leading to possible new exploits and attacks.
 
-
+--------------------------------------------
 Get rid of the nat, it's time for firewalls!
 --------------------------------------------
 
@@ -94,13 +96,15 @@ inside out network. That's gona be TCP, UDP and some ICMPv6 types. It's very
 important which ICMPv6 packets you let in, because as we will see later ICMPv6
 has gained much signifficant role in ipv6.
 
-* Firewalling IPv6
+________________
+Firewalling IPv6
+________________
 
-  There's nothing special about firewalling ip layer, except now you will have to
-  filter all traffic to all hosts on your network.
+There's nothing special about firewalling ip layer, except now you will have to
+filter all traffic to all hosts on your network.
 
-  Besides that, make sure to filter RH0 header, and i will copy-paste article 
-  why, taken form `here <http://www.deployingipv6.net/index.php/archives/2007/06/03/rh0/>`::
+Besides that, make sure to filter RH0 header, and i will copy-paste article 
+why, taken form `here <http://www.deployingipv6.net/index.php/archives/2007/06/03/rh0/>`_::
 
     There’s been rather a lot of talk about RH0, that’s IPv6’s type 0 routing header. 
     Broadly speaking, the header allowed you to list a set of places that the 
@@ -145,57 +149,76 @@ has gained much signifficant role in ipv6.
     I think the remaining interesting question is how do we design a version of 
     RH0 which is both safe and useful.
 
-* Firewalling ICMPv6
+__________________
+Firewalling ICMPv6
+__________________
 
-  ICMPv6 message types that should be accepted originating and going to the internet 
-  are following:
+:term:`ICMPv6 types` that should be accepted originating and going to the internet 
+are following:
 
-    +----------------------------------------------+--------------------------------------------------------------------+
-    | Type                                         | Code                                                               |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    | Value   | Meaning                            | Value | Meaning                                                    |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |                                  ICMPv6 Error Messages                                                            |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |    1    | Destination Unreachable            |   0   | no route to destination                                    |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   1   | communication with destination administratively prohibited |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   2   | beyond scope of source address                             |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   3   | address unreachable                                        |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   4   | port unreachable                                           |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   5   | source address failed ingress/egress policy                |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   6   | reject route to destination                                |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   7   | Error in Source Routing Header                             |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |    2    | Packet too big                     |   0   |                                                            |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |    3    | Time Exceeded                      |   0   | hop limit exceeded in transit                              |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   1   | fragment reassembly time exceeded                          |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |    4    | Parameter Problem                  |   0   | erroneous header field encountered                         |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   1   | unrecognized Next Header type encountered                  |
-    |         |                                    +-------+------------------------------------------------------------+
-    |         |                                    |   2   | unrecognized IPv6 option encountered                       |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |                                  ICMPv6 Informational Messages                                                    |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |    128  | Echo request                       |   0   |                                                            |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
-    |    129  | Echo reply                         |   0   |                                                            |
-    +---------+------------------------------------+-------+------------------------------------------------------------+
++----------------------------------------------+--------------------------------------------------------------------+
+| Type                                         | Code                                                               |
++---------+------------------------------------+-------+------------------------------------------------------------+
+| Value   | Meaning                            | Value | Meaning                                                    |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|                                  ICMPv6 Error Messages                                                            |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    1    | Destination Unreachable            |   0   | no route to destination                                    |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   1   | communication with destination administratively prohibited |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   2   | beyond scope of source address                             |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   3   | address unreachable                                        |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   4   | port unreachable                                           |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   5   | source address failed ingress/egress policy                |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   6   | reject route to destination                                |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   7   | Error in Source Routing Header                             |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    2    | Packet too big                     |   0   |                                                            |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    3    | Time Exceeded                      |   0   | hop limit exceeded in transit                              |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   1   | fragment reassembly time exceeded                          |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    4    | Parameter Problem                  |   0   | erroneous header field encountered                         |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   1   | unrecognized Next Header type encountered                  |
+|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |   2   | unrecognized IPv6 option encountered                       |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|                                  ICMPv6 Informational Messages                                                    |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    128  | Echo request                       |   0   |                                                            |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    129  | Echo reply                         |   0   |                                                            |
++---------+------------------------------------+-------+------------------------------------------------------------+
 
-  Everything else must get dropped!
+Everything else must get dropped!
 
+On the local network the following additional ICMPv6 messages must be accepted:
+
++---------+------------------------------------+-------+------------------------------------------------------------+
+|                                  ICMPv6 Informational Messages                                                    |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    133  | Router Solicitation (NDP)          |   0   | From hosts to router                                       |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    134  | Router Advertisement (NDP)         |   0   | From router to hosts                                       |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    135  | Neighbor Solicitation (NDP)        |   0   | Betwene hosts                                              |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    136  | Neighbor Advertisement (NDP)       |   0   | Betwene hosts                                              |
++---------+------------------------------------+-------+------------------------------------------------------------+
+|    137  | Redirect Message (NDP)             |   0   | From router to hosts, only if there are multiple routers   |
++---------+------------------------------------+-------+------------------------------------------------------------+
+
+------------------------------
 IPv6, ICMPv6 and local attacks
------------------------------
+------------------------------
 
 With ipv6 icmp has gained much signifficant role, because it's not only
 used for error control and flow control like in ipv4, but it has also replaced
@@ -221,47 +244,46 @@ abusing ICMPv6:
 
 Most of the :term:`THC-ipv6` tools are ment especially for pentesting ICMPv6 security.
 
-Attacks
--------
-
 In this section we will present several possible attacks inside ipv6 networks and
 needed actions to prevent against. Also some tests will be written latter
 to garantee that speciffic network is secure against those attacks.
 
-* Icmp :term:`Neighbor Solicitation`/:term:`Neighbor Advertisement` spoofing
+__________________________________________________________________________
+Icmp :term:`Neighbor Solicitation`/:term:`Neighbor Advertisement` spoofing
+__________________________________________________________________________
 
-  **Description**
+**Description**
 
-  .. image:: _static/NAspoofing.png
+.. image:: _static/NAspoofing.png
 
-  The ICMP router discovery messages are called :term:`Router Advertisement`
-  and :term:`Router Solicitation`. Each router periodically multicasts a 
-  Router Advertisement from each of its multicast interfaces, 
-  announcing the IP address(es) of that interface. Hosts discover the 
-  addresses of their neighboring routers simply by listening for 
-  advertisements. When a host attached to a multicast link starts up, 
-  it may multicast a Router Solicitation to ask for immediate advertisements, 
-  rather than waiting for the next periodic ones to arrive; 
-  if (and only if) no advertisements are forthcoming, the host may retransmit 
-  the solicitation a small number of times, but then must desist from 
-  sending any more solicitations. Any routers that subsequently start up, 
-  or that were not discovered because of packet loss or temporary link 
-  partitioning, are eventually discovered by reception of their periodic 
-  (unsolicited) advertisements.
+The ICMP router discovery messages are called :term:`Router Advertisement`
+and :term:`Router Solicitation`. Each router periodically multicasts a 
+Router Advertisement from each of its multicast interfaces, 
+announcing the IP address(es) of that interface. Hosts discover the 
+addresses of their neighboring routers simply by listening for 
+advertisements. When a host attached to a multicast link starts up, 
+it may multicast a Router Solicitation to ask for immediate advertisements, 
+rather than waiting for the next periodic ones to arrive; 
+if (and only if) no advertisements are forthcoming, the host may retransmit 
+the solicitation a small number of times, but then must desist from 
+sending any more solicitations. Any routers that subsequently start up, 
+or that were not discovered because of packet loss or temporary link 
+partitioning, are eventually discovered by reception of their periodic 
+(unsolicited) advertisements.
 
-  Attacker is able to redirect all local traffic to your own system by answering 
-  falsely to :term:`Neighbor Solicitation` requests.
+Attacker is able to redirect all local traffic to your own system by answering 
+falsely to :term:`Neighbor Solicitation` requests.
 
-  **Attack**
+**Attack**
 
-  There's quite easy to perfrorm this attack. Well you can use :term:`THC-ipv6` 
-  parasite6 tool, but we will look up how you can craft up required packets by hand.
-  
-  What you need to do is create :term:`Neighbor Advertisement` packet with spoofed
-  mac address. To know whom to spoof you just need to wait for :term:`Neighbor Solicitation`
-  multicast messages from other hosts on the network.
+There's quite easy to perfrorm this attack. Well you can use :term:`THC-ipv6` 
+parasite6 tool, but we will look up how you can craft up required packets by hand.
 
-  Here is an example of crafting fake :term:`Neighbor Advertisement` using :term:`scapy`::
+What you need to do is create :term:`Neighbor Advertisement` packet with spoofed
+mac address. To know whom to spoof you just need to wait for :term:`Neighbor Solicitation`
+multicast messages from other hosts on the network.
+
+Here is an example of crafting fake :term:`Neighbor Advertisement` using :term:`scapy`::
 
     >>> ls(Ether)
     dst        : DestMACField         = (None)
@@ -295,28 +317,28 @@ to garantee that speciffic network is secure against those attacks.
     >>> lla=ICMPv6NDOptDstLLAddr(lladdr='ba:2d:7e:de:15:c6')
     >>> packet = ether/ipv6/na/lla
 
-  Now we send this packet and at the same time at the victim machine we monitor
-  neighbours on link::
+Now we send this packet and at the same time at the victim machine we monitor
+neighbours on link::
 
     >>> sendp(packet, iface='priv', loop=1, inter=5)
 
-  Before the attack router's mac is not redirected to attacker::
+Before the attack router's mac is not redirected to attacker::
 
     vagrant@priv:~$ ip -6 neigh show
     fe80::a00:27ff:fedb:225c dev eth1 lladdr 08:00:27:db:22:5c router STALE
-    
-  After a few seconds of sending spoofed :term:`Neighbor Advertisement` packets,
-  mac address for router gets changed::
-    
+
+After a few seconds of sending spoofed :term:`Neighbor Advertisement` packets,
+mac address for router gets changed::
+
     vagrant@priv:~$ ip -6 neigh show
     fe80::a00:27ff:fedb:225c dev eth1 lladdr ba:2d:7e:de:15:c6 STALE
 
-  **Countermeasures**
+**Countermeasures**
 
-  It's not easy to prevent against this kind of attacks, but there still exists
-  some security measures like:
+It's not easy to prevent against this kind of attacks, but there still exists
+some security measures like:
 
-  * Enter static mac addresses of routers
+* Enter static mac addresses of routers
 
     This is especially usefull on managed environemnts. Setting static mac
     addresses will ensure that they won't get overwritten by attacker sending 
@@ -330,8 +352,8 @@ to garantee that speciffic network is secure against those attacks.
     communication betwene host on the network can still get redirected over
     attacker.
 
-  * Use :term:`SeND` or :term:`CGA`
-    
+* Use :term:`SeND` or :term:`CGA`
+
     :term:`SeND` is using :term:`CGA` (Cryptographically Generated Address)
     which makes shure that :term:`Neighbor Advertisement` messages are authentic.
 
@@ -344,10 +366,12 @@ to garantee that speciffic network is secure against those attacks.
         :term:`CGA` is not wildly deployed and no production read software exists for
         some operating systems, so it is advised not to use it, yet.
 
-  * Tunneling solutions like :term:`IPSec` should be used, but they 
-    are not wildly deployed.
+* Tunneling solutions like :term:`IPSec` should be used, but they 
+are not wildly deployed.
 
-* :term:`Router advertisement` spoofing
+_____________________________________
+:term:`Router advertisement` spoofing
+_____________________________________
 
   **Description**
 
@@ -491,7 +515,7 @@ to garantee that speciffic network is secure against those attacks.
         detects anomalies in ICMPv6 and can perform actions, like sending
         mail to administrator or similar.
 
-  ** Trying out NDPMon**
+  **Trying out NDPMon**
 
     We tried out how `NDPMon <http://ndpmon.sourceforge.net/>`_ performs
     ad "Intelligent" Deprecation tool.
@@ -651,7 +675,9 @@ to garantee that speciffic network is secure against those attacks.
         only attack speciffic hosts on a switched networks and usually won't be
         detected.
 
-* Denial of Service (DoS) with IP conflicts
+_________________________________________
+Denial of Service (DoS) with IP conflicts
+_________________________________________
 
   **Description**
  
@@ -708,10 +734,10 @@ to garantee that speciffic network is secure against those attacks.
   This attack shares a lot in common with term :term:`Router Advertisement`
   spoofing, so similar methods for prevention could be used.
 
-  ** Trying out NDPMon**
+  .. note::
 
-  We decided to try out what NDPMon says about this attack, if tool is able to
-  detect it. It turned out it was useless.
+    We decided to try out what NDPMon says about this attack, if tool is able to
+    detect it. It turned out it was useless.
 
 * Denial of Service (DoS) with Neighbor floods
 
@@ -719,9 +745,15 @@ There are also some other local attacks that are possible, but like presented
 there are no effective mechanism, besides different tunneling to prevent attacks 
 inside ipv6 networks.
 
+---------------------
 Secure implementation
 ---------------------
 
 We have tried to prevent these attacks and find out that only tunneling mechanisms
 like :term:`IPSec` or link based authentication mechanisms like :term:`802.11q`
-can protect agains local attacks.
+can protect agains local attacks. 
+
+.. note::
+
+    For demonstration there's avalible a secure implementation of network
+    using :term:`IPSec` avalible :doc:`here <linux_standard_corporate>`

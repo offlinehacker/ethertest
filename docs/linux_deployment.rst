@@ -9,6 +9,7 @@ Standard virtualisation environment used in this project, :term:`vagrant` was
 used and :term:`puppet` was used for deployment of everything, but you can
 read more about it this :doc:`environment`.
 
+------------------
 Deployment modules
 ------------------
 
@@ -51,7 +52,7 @@ which were custom made, to fit our needs. All module are located under
   :term:`NDP` server, used fot dynamic assignments of ipv6 addresses in private
   netowrks and :term:`Router Advertisement`.
 
-* :IPSec module
+* IPSec module
 
   :term:`IPSec` module for providing end to end secure communication in production
   environments.

@@ -1,6 +1,6 @@
-=======================
-The testing enivronment
-=======================
+===================
+Testing enivronment
+===================
 
 -------------------------
 Why we took this approach
@@ -13,7 +13,7 @@ virtual environment (using Oracle's virtualbox virtualization software, where we
 can run practically what we wish) and scapy to manage and create test packets to
 send through our networks.
 
-
+------------------
 Project components
 ------------------
 
@@ -61,6 +61,7 @@ How to setup the system
 This  is  a step by step how-to on setting up the testing environment. The following
 directions are based for machines running Ubuntu 12.04 or 12.10.
 
+____________________
 System requierments:
 ____________________
 
@@ -74,6 +75,7 @@ ____________________
     VirtualBox can run inside os-based virtualization like openvz or lxc,
     that's also why we use bridged networking inside virtual boxes (host-only does not work).
 
+_____________
 Requierments:
 _____________
 
@@ -82,10 +84,11 @@ _____________
 * `Vagrant <http://downloads.vagrantup.com>`_
 * System packages: `iptables`, `tunctl`, `dnsmasq`
 
+-----------
 Development
 -----------
 
-    ::
+::
 
     $ git clone git@github.com:offlinehacker/ethertest.git
     $ git submodule update
@@ -94,31 +97,32 @@ Development
     $ vagrant gem install vagrant-hiera
     $ vagrant up [name]
 
-Update
+**Updating**
 
-    ::
+::
 
-        $ git pull origin master
-        $ git submodule update --init
-        $ vagrant destroy [name](only if you are having problems)
-        $ vagrant up [name]
+    $ git pull origin master
+    $ git submodule update --init
+    $ vagrant destroy [name](only if you are having problems)
+    $ vagrant up [name]
 
-    .. note::
+.. note::
         
-        You don't need to destroy::
+    You don't need to destroy::
         
         $ vagrant provision
 
-        should do the task in most cases. If you are having problems first try
-        to halt or reload you virtual machines::
+    should do the task in most cases. If you are having problems first try
+    to halt or reload you virtual machines::
 
         $ vagrant halt -f [name]
         $ vagrant reload [name]
 
+_______________________________
 Ubuntu 12.04/12.10 instructions
 _______________________________
 
-    ::
+::
 
     $ wget http://download.virtualbox.org/virtualbox/4.2.4/virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
     $ sudo dpkg -i virtualbox-4.2_4.2.4-81684~Ubuntu~precise_amd64.deb
@@ -131,30 +135,31 @@ _______________________________
     $ source bin/activate
     $ python setup.py develop
 
-  .. note::
+.. note::
 
     To activate and deactivate python virtual environment use
     "$ source bin/activate" and "deactivate" commands.
 
-  .. note::
+.. note::
 
-     If you are having problems with installing vagrant try installing the x64 version.
+    If you are having problems with installing vagrant try installing the x64 version.
     ::
 
-    $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_x86_64.deb
-    $ sudo dpkg -i vagrant_1.0.5_x86_64.deb
+        $ wget http://files.vagrantup.com/packages/be0bc66efc0c5919e92d8b79e973d9911f2a511f/vagrant_1.0.5_x86_64.deb
+        $ sudo dpkg -i vagrant_1.0.5_x86_64.deb
 
-  .. note::
+.. note::
 
     If you're having problems developing setup.py try installing numpy before running it::
 
-    $ pip install numpy
+        $ pip install numpy
     
 
+--------------------------
 Bringing up virtual box-es
 --------------------------
 
-  .. note::
+.. note::
 
     Configurations for the virtual boxes are located inside `Vagrantfile`.
 
@@ -165,16 +170,14 @@ Bringing up virtual box-es
     There must be no dnsmasq process running else vagrant won't start up.
     Check it with::
 
-    $ ps -e | grep dnsmasq
+        $ ps -e | grep dnsmasq
 
     If the output shows dnsmasq running, kill it with::
 
-    $ sudo killall dnsmasq
+        $ sudo killall dnsmasq
 
 * First of all we need to start the network, dhcp server and nat. The following
-  commands also create new network interfaces:
-
-  ::
+  commands also create new network interfaces::
 
     $ fab netstart
     $ fab dhcp
@@ -202,9 +205,7 @@ Bringing up virtual box-es
 
     $ vagrant gem install vagrant-hiera
 
-* To shut down a virtual box use
-  
-  ::
+* To shut down a virtual box use::
 
     $ vagrant halt [name]
 
@@ -212,11 +213,11 @@ Bringing up virtual box-es
 
     $ vagrant halt [name] -f
 
-  .. note::
+.. note::
 
     You can also run virtualbox to debug and control your running virtualboxes.
 
-  .. warning::
+.. warning::
 
     If `vagrant` command is not avalible you must setup your search `PATH` variable.
     You can set it by doing the following::
