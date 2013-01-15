@@ -142,7 +142,7 @@ class profile::router::network {
     }
 }
 
-class profile::router::firewall {
+class router::firewall {
     package { "iptables-persistent":
         ensure => "installed"
     }
@@ -161,21 +161,30 @@ class profile::router::firewall {
         policy => "-"
     }
 
-    ip6tables::chain::filter { ["INPUT", "OUTPUT", "FORWARD"]:
-        policy => "ACCEPT"
-    }
-
     # Chain used for port forwading rules
     ip6tables::chain::filter { ["port_forward"]:
         policy => "-"
     }
-   
-    iptables::chain::nat { ["PREROUTING", "POSTROUTING", "INPUT", "OUTPUT"]:
-        policy => "ACCEPT"
-    }
 
     # Chain used for port forwading rules
     iptables::chain::nat { ["port_forward"]:
+        policy => "-"
+    }
+
+    ip6tables::chain::filter { ["INPUT", "OUTPUT", "FORWARD"]:
+        policy => "DROP"
+    }
+  
+    iptables::chain::nat { ["PREROUTING", "POSTROUTING", "INPUT", "OUTPUT"]:
+        policy => "ACCEPT"
+    }
+}
+
+class router::firewall::ext {
+    require("router::firewall")
+
+    # Chain used for port forwading rules
+    ip6tables::chain::filter { ["ext_icmpv6"]:
         policy => "-"
     }
 
@@ -200,7 +209,7 @@ class profile::router::firewall {
         port => "443"
     }
 
-    iptables::filter { "port_forward":
+    ip46tables::filter { "port_forward":
         chain => "FORWARD",
         changes => [
                 "set in-interface eth1",
@@ -210,14 +219,6 @@ class profile::router::firewall {
 
     iptables::nat { "port_forward":
         chain => "PREROUTING",
-        changes => [
-                "set in-interface eth1",
-                "set jump port_forward",
-        ],
-    }
-
-    ip6tables::filter { "port_forward":
-        chain => "FORWARD",
         changes => [
                 "set in-interface eth1",
                 "set jump port_forward",
@@ -234,7 +235,7 @@ class profile::router::firewall {
     }
 
     # Enable related and establised connections to outside
-    iptables::filter { "accept_established":
+    ip46tables::filter { "accept_established":
         chain => "FORWARD",
         changes => [
                 "set out-interface eth1",
@@ -242,19 +243,192 @@ class profile::router::firewall {
                 "set state 'ESTABLISHED,RELATED'",
                 "set jump ACCEPT",
         ],
-        require => [Iptables::Filter["port_forward"]]
     }
 
-    # Enable related and establised connections to outside
-    ip6tables::filter { "accept_established":
-        chain => "FORWARD",
+    filter_icmpv6 { "ext_icmpv6":
+        types => ["128", 129, "133", "134", "135", "136"],
+        chain => "ext_icmpv6"
+    }
+
+    ip6tables::filter { "ext_icmpv6_in":
+        chain => "INPUT",
+        changes => [
+                "set in-interface eth1",
+                "set jump ext_icmpv6",
+        ],
+    }
+
+    ip6tables::filter { "ext_icmpv6_out":
+        chain => "OUTPUT",
         changes => [
                 "set out-interface eth1",
+                "set jump ext_icmpv6",
+        ],
+    }
+
+    ip6tables::filter { "ext_icmpv6_fwd":
+        chain => "FORWARD",
+        changes => [
+                "set in-interface eth1",
+                "set jump ext_icmpv6",
+        ],
+    }
+}
+
+class router::firewall::prod {
+    require("router::firewall")
+
+    # Chain used for port forwading rules
+    ip6tables::chain::filter { ["prod_icmpv6"]:
+        policy => "-"
+    }
+
+    filter_icmpv6 { "prod_icmpv6":
+        types => ["128", 129, "133", "134", "135", "136"],
+        chain => "prod_icmpv6"
+    }
+
+    ip6tables::filter { "prod_icmpv6_in":
+        chain => "INPUT",
+        changes => [
+                "set in-interface eth3",
+                "set jump prod_icmpv6",
+        ],
+    }
+
+    ip6tables::filter { "prod_icmpv6_out":
+        chain => "OUTPUT",
+        changes => [
+                "set out-interface eth3",
+                "set jump prod_icmpv6",
+        ],
+    }
+
+    ip6tables::filter { "prod_esp_in":
+        chain => "INPUT",
+        changes => "
+            set protocol ESP
+            set in-interface eth3
+            set jump ACCEPT
+        "
+    }
+
+    ip6tables::filter { "prod_esp_out":
+        chain => "OUTPUT",
+        changes => "
+            set protocol ESP
+            set out-interface eth3
+            set jump ACCEPT
+        "
+    }
+
+   ip6tables::filter { "prod_ike_in_4500":
+        chain => "INPUT",
+        changes => "
+            set protocol UDP
+            set source-port 4500
+            set destination-port 4500
+            set in-interface eth3
+            set jump ACCEPT
+        "
+    }
+
+   ip6tables::filter { "prod_esp_in_500":
+        chain => "INPUT",
+        changes => "
+            set protocol UDP
+            set source-port 500
+            set destination-port 500
+            set in-interface eth3
+            set jump ACCEPT
+        "
+    }
+
+   ip6tables::filter { "prod_ike_out_4500":
+        chain => "OUTPUT",
+        changes => "
+            set protocol UDP
+            set source-port 4500
+            set destination-port 4500
+            set out-interface eth3
+            set jump ACCEPT
+        "
+    }
+
+   ip6tables::filter { "prod_esp_out_500":
+        chain => "OUTPUT",
+        changes => "
+            set protocol UDP
+            set source-port 500
+            set destination-port 500
+            set out-interface eth3
+            set jump ACCEPT
+        "
+    }
+}
+
+class router::firewall::priv {
+    require("router::firewall")
+
+    # Chain used for port forwading rules
+    ip6tables::chain::filter { ["priv_icmpv6"]:
+        policy => "-"
+    }
+
+    # Enable new connections to outside
+    ip46tables::filter { "priv_accept_new":
+        chain => "FORWARD",
+        changes => [
+                "set in-interface eth2",
+                "set out-interface eth1",
                 "set match[ . = 'state'] state",
-                "set state 'ESTABLISHED,RELATED'",
+                "set state 'NEW'",
                 "set jump ACCEPT",
         ],
-        require => [Ip6tables::Filter["port_forward"]]
+    }
+
+    filter_icmpv6 { "priv_icmpv6":
+        types => ["128", 129, "133", "134", "135", "136"],
+        chain => "priv_icmpv6"
+    }
+
+    ip6tables::filter { "priv_icmpv6_in":
+        chain => "INPUT",
+        changes => [
+                "set in-interface eth2",
+                "set jump priv_icmpv6",
+        ],
+    }
+
+    ip6tables::filter { "priv_icmpv6_out":
+        chain => "OUTPUT",
+        changes => [
+                "set out-interface eth2",
+                "set jump priv_icmpv6",
+        ],
+    }
+
+}
+
+class router::firewal::managment {
+    require("router::firewall")
+
+    # Enable connections on managment
+    ip46tables::filter { "managment_in":
+        chain => "INPUT",
+        changes => [
+                "set in-interface eth0",
+                "set jump ACCEPT",
+        ],
+    }
+
+    # Enable connections on managment
+    ip46tables::filter { "managment_out":
+        chain => "OUTPUT",
+        changes => [
+                "set out-interface eth0",
+                "set jump ACCEPT",
+        ],
     }
 }
 
@@ -263,8 +437,20 @@ class profile::router {
 
     class { "profile::router::network": }
 
-    class { "profile::router::firewall": 
+    class { "router::firewall": 
         require => Class["profile::router::network"]
+    }
+
+    class { "router::firewall::ext": 
+        require => Class["router::firewall"]
+    }
+
+    class { "router::firewall::prod": 
+        require => Class["router::firewall::ext"]
+    }
+
+    class { "router::firewall::priv": 
+        require => Class["router::firewall::ext"]
     }
 }
 
