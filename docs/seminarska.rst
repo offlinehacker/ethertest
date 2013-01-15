@@ -7,4 +7,5 @@
 .. include:: ipsec_configuration.rst
 .. include:: linux_deployment.rst
 .. include:: linux_standard_corporate.rst
+.. include:: conlcusion.rst
 

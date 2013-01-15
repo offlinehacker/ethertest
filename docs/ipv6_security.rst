@@ -16,14 +16,14 @@ Something about IPv6
 
 
 It should be very easy to turn on IPv6 support and enable it to work, that
-was the core idea of IPv6. You don't need dhcp anymore, everyone gets IPv6
+was the core idea of IPv6. You don't need dhcp anymore, everyone gets an IPv6
 address for free and basically everything gets configured automatically.
-That's for client, but what should we do for router to make it work?
+That's for clients, but what should we do to make the router work?
 
-Well it turns out if you do that, you will be mostly very insecure. Not
-only that some old attacks affect you, but there are also new attacks that
-affect ipv6 users. To make ipv6 secure you must configure it corretly and
-test configurations.
+Well it turns out if leave everyting on automatic, you will be actually very
+insecure. Not only that will some old attacks affect you, but there are also new
+ones that affect IPv6 users. To make IPv6 secure you must first configure it correctly
+and then test the configurations.
 
 
 -----------------------------------------------    
