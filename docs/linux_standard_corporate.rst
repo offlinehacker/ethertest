@@ -2,8 +2,16 @@
 Standard corporate linux network configuration
 ==============================================
 
-This is example linux network configuration using standard corporate network
-topology.
+This is example linux network configuration using standard corporate star type 
+network topology. 
+
+It consists of a router, a private and a production host, plus it has an internet
+virtualbox, which emulates "the outside". The router acts as a central hub,
+routing all connections from the internet (extsrv) to and from the other two hosts
+(priv and prod). It also contains ip routing tables.
+
+.. image:: _static/stcorptop.png
+    :width: 100%
 
 --------------------------------------------
 Networks and their respective configurations
