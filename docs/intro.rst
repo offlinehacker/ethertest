@@ -25,5 +25,6 @@ like mikrotik, cisco, etc. What's more it allows us to setup a virtual network,
 perfect for testing purposes.
 
 What was created was a self deployable system, that creates a virtual environment
-with different network adapters and a router running the firewall.
+with different network hosts and a router running the firewall and routing the
+traffic.
 
