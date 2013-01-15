@@ -40,7 +40,7 @@ I decide to split network testing in five phases:
 
 * **Network conectivety testing**::
   
-    This kind of testing is used for verification of conectivety betwene 
+    This kind of testing is used for verification of conectivety between 
     network segments.
 
 * **Network correctness tesing**::
