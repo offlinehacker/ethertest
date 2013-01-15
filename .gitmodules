@@ -19,3 +19,6 @@
 [submodule "puppet/modules/concat"]
 	path = puppet/modules/concat
 	url = https://github.com/ripienaar/puppet-concat.git
+[submodule "puppet/modules/resourceloop"]
+	path = puppet/modules/resourceloop
+	url = https://github.com/ashak/puppet-resource-looping.git
