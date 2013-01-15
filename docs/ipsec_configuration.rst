@@ -16,7 +16,7 @@ There might be a question why somebody would want to encrypt traffic in LAN.
 Well it turns out that IPSec can easyily protect you against the attacker that
 have capability to infiltrate inside your LAN or the one that will compromise
 one of your production machines and will want to manipulate traffic betwene
-machines. As  we know from :doc:`ipv6_config` it's pretty easy to sniff and 
+machines. As we know from :doc:`ipv6_security` it's pretty easy to sniff and 
 manipulate traffic on switched LAN, but if traffic is encrypted that becomes
 impossible, or very very hard.
 

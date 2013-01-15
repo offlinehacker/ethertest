@@ -3,6 +3,8 @@ EtherTest
 
 Testbed for ethernet networks
 
+Documentation is avalible at `http://offlinehacker.x-truder.net/ethertest/ <http://offlinehacker.x-truder.net/ethertest/>`_
+
 Development
 -----------
 

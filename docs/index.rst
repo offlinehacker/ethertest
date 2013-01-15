@@ -20,4 +20,5 @@ Contents:
     linux_deployment
     linux_standard_corporate
     conclusion
+    glossary
 

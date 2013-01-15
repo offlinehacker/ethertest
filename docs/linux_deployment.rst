@@ -2,12 +2,11 @@
 Network deployment in linux
 ===========================
 
-Here we will present our secure deployment of simulted corporate network
-using linux as a core router.
+Here we will present our deployment of linux based network.
 
 Standard virtualisation environment used in this project, :term:`vagrant` was 
 used and :term:`puppet` was used for deployment of everything, but you can
-read more about it this :doc:`environment`.
+read more about this here :doc:`environment`.
 
 ------------------
 Deployment modules
