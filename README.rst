@@ -5,7 +5,7 @@ Testbed for ethernet networks
 
 Documentation is avalible at `http://offlinehacker.x-truder.net/ethertest/ <http://offlinehacker.x-truder.net/ethertest/>`_
 
-We are trying to make this project as good as our knowlede about networking is,
+We are trying to make this project as good as our knowledge about networking is,
 but we are still learning and we know you can make it even better!
 
 **Any contributions in form of knowledge, comments, new ideas, bug reports and more
