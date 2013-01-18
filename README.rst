@@ -7,7 +7,7 @@ Testbed for ethernet networks
 
 Documentation is avalible at `http://offlinehacker.x-truder.net/ethertest/ <http://offlinehacker.x-truder.net/ethertest/>`_
 
-We are trying to make this project as good as our knowlede about networks is,
+We are trying to make this project as good as our knowledge about networking is,
 but we are still learning and we know you can make it even better!
 
 **Any contributions in form of knowledge, comments, new ideas, bug reports and more
@@ -165,3 +165,28 @@ Documentation is located in `docs/` folder. To build it do
 
         Documentation is written in `reStructuredText <http://docutils.sourceforge.net/rst.html>`_
         markup language and is using `sphinx <http://sphinx-doc.org/>`_ speciffics and builders.
+
+Building latex tex files with sphinx:
+
+    ::
+
+	$ cd ethertest/lat-docs
+	$ make latex
+
+    .. note::
+	
+	This will output a latex construct with [filename].tex. Filename is edited in conf.py
+	in the source directory, where all the other .rst files are located.
+
+Building pdf from latex
+
+    ::
+
+	$ cd ../build/latex
+	$ make all-pdf
+
+    .. note::
+
+	This will generate a [filename].pdf from latex source files. More info and how to startup
+	and generate first sphinx documents and convert them to pdf are located
+	`here <http://jimmyg.org/blog/2009/sphinx-pdf-generation-with-latex.html>`_.
