@@ -1,6 +1,3 @@
-EtherTest
-=========
-
 .. image:: https://raw.github.com/offlinehacker/ethertest/master/docs/_static/logo.png
 
 Testbed for ethernet networks
