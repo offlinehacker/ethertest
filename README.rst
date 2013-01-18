@@ -1,6 +1,8 @@
 EtherTest
 =========
 
+.. image:: https://raw.github.com/offlinehacker/ethertest/docs/_static/logo.png
+
 Testbed for ethernet networks
 
 Documentation is avalible at `http://offlinehacker.x-truder.net/ethertest/ <http://offlinehacker.x-truder.net/ethertest/>`_
