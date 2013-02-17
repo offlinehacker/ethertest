@@ -65,7 +65,7 @@ ____________
 
   .. note::
 
-    :download:`Configuration file download <../puppet/manifests/priv.pp>`.
+    :download:`Configuration file download <../../puppet/manifests/priv.pp>`.
 
   ::
 
@@ -95,7 +95,7 @@ _______________
 
   .. note::
 
-    :download:`Configuration file download <../puppet/manifests/prod.pp>`.
+    :download:`Configuration file download <../../puppet/manifests/prod.pp>`.
 
   ::
 
@@ -135,7 +135,7 @@ network and block relevant traffic.
 
 .. note::
 
-    :download:`Configuration file download <../puppet/manifests/router.pp>`.
+    :download:`Configuration file download <../../puppet/manifests/router.pp>`.
 
 * Network configuration::
 

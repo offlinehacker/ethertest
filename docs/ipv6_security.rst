@@ -184,6 +184,8 @@ __________________
 :term:`ICMPv6 types` that should be accepted originating and going to the internet 
 are following:
 
+.. tabularcolumns:: | p{1cm} | p{4cm} | p{1cm} | p{9cm} |
+
 +----------------------------------------------+--------------------------------------------------------------------+
 | Type                                         | Code                                                               |
 +---------+------------------------------------+-------+------------------------------------------------------------+
@@ -192,31 +194,31 @@ are following:
 |                                  ICMPv6 Error Messages                                                            |
 +---------+------------------------------------+-------+------------------------------------------------------------+
 |    1    | Destination Unreachable            |   0   | no route to destination                                    |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   1   | communication with destination administratively prohibited |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   2   | beyond scope of source address                             |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   3   | address unreachable                                        |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   4   | port unreachable                                           |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   5   | source address failed ingress/egress policy                |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   6   | reject route to destination                                |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   7   | Error in Source Routing Header                             |
 +---------+------------------------------------+-------+------------------------------------------------------------+
 |    2    | Packet too big                     |   0   |                                                            |
 +---------+------------------------------------+-------+------------------------------------------------------------+
 |    3    | Time Exceeded                      |   0   | hop limit exceeded in transit                              |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   1   | fragment reassembly time exceeded                          |
 +---------+------------------------------------+-------+------------------------------------------------------------+
 |    4    | Parameter Problem                  |   0   | erroneous header field encountered                         |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   1   | unrecognized Next Header type encountered                  |
-|         |                                    +-------+------------------------------------------------------------+
+|         |                                    |       |                                                            |
 |         |                                    |   2   | unrecognized IPv6 option encountered                       |
 +---------+------------------------------------+-------+------------------------------------------------------------+
 |                                  ICMPv6 Informational Messages                                                    |
@@ -229,6 +231,8 @@ are following:
 Everything else must get dropped!
 
 On the local network the following additional ICMPv6 messages must be accepted:
+
+.. tabularcolumns:: | p{1cm} | p{4cm} | p{1cm} | p{9cm} |
 
 +---------+------------------------------------+-------+------------------------------------------------------------+
 |                                  ICMPv6 Informational Messages                                                    |
@@ -370,8 +374,7 @@ some security measures like:
         :term:`CGA` is not wildly deployed and no production read software exists for
         some operating systems, so it is advised not to use it, yet.
 
-* Tunneling solutions like :term:`IPSec` should be used, but they 
-are not wildly deployed.
+* Tunneling solutions like :term:`IPSec` should be used, but they are not wildly deployed.
 
 _____________________________________
 :term:`Router advertisement` spoofing
@@ -463,7 +466,7 @@ _____________________________________
     However, Destination Options are not meant to be read by intermediate 
     devices like firewalls and/or routers, and that is why the ease of evasion.
 
-    .. image:: _static/2nd-technique-672px.gif
+    .. image:: _static/2nd-technique-672px.png
 
   * SEcure Neighbor Discovery (:term:`SeND`)
 
@@ -528,7 +531,7 @@ _____________________________________
     
     Version provided by different linux distribution package managers is sometimes old,
     it's advised to build it from source. You can find instructions at
-    `http://ndpmon.sourceforge.net/index.php?n=Doc.Installation http://ndpmon.sourceforge.net/index.php?n=Doc.Installation`_.
+    `ndpmon <http://ndpmon.sourceforge.net/index.php?n=Doc.Installation>`_.
 
     After you do that, you just need to configure it. Basicly you need to specify
     mac, link local addresses of your router interface and ipv6 network prefix::
